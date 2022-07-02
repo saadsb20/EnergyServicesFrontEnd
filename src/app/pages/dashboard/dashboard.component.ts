@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import Chart from 'chart.js';
+import { ETService } from 'src/app/services/et.service';
 
 // core components
 import {
@@ -22,7 +24,14 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
+
+  constructor(private etService: ETService, private router: Router) { }
+
   ngOnInit() {
+    if (localStorage.getItem("token") != null && localStorage.getItem("Role") != "0") {
+      this.router.navigateByUrl("/user/user-dashboard");
+
+    }
 
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
@@ -45,10 +54,12 @@ export class DashboardComponent implements OnInit {
     var chartSales = document.getElementById('chart-sales');
 
     this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
+      type: 'line',
+      options: chartExample1.options,
+      data: chartExample1.data
+    });
+
+
   }
 
 
@@ -56,5 +67,7 @@ export class DashboardComponent implements OnInit {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
   }
+
+
 
 }

@@ -14,6 +14,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private Formbuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+
+    if (localStorage.getItem("token") != null && localStorage.getItem("Role") != "0") {
+      this.router.navigateByUrl("/user/user-dashboard");
+
+    }
+
+
     this.form = this.Formbuilder.group({
       username: '',
       password: ''

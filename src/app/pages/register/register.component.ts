@@ -14,6 +14,10 @@ export class RegisterComponent implements OnInit {
   constructor(private Formbuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem("token") != null && localStorage.getItem("Role") != "0") {
+      this.router.navigateByUrl("/user/user-dashboard");
+    }
+
     this.form = this.Formbuilder.group({
       username: "",
       password: "",
